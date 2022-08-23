@@ -1,0 +1,21 @@
+version: '3'
+networks:
+   mysql-net:
+        driver: bridge
+        driver_opts:
+            com.docker.network.bridge.enable_icc: "true"
+            com.docker.network.bridge.enable_ip_masquerade: "true"
+        ipam:
+            config:
+                - subnet: 172.25.0.0/16
+                  gateway: 172.25.0.1
+services:
+    mysql-test:
+        image: mysql/mysql-server:latest
+        container_name: mysql-net-test
+        ports:
+            - 3306:3306
+        networks: 
+            - mysql-net            
+
+# docker run -d -name=mysql -p 3306:3306 mysql/mysql-server:latest   
